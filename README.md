@@ -10,8 +10,8 @@
 ```
     @Bean
     public WorkFlow registerWorkflow(){
-        WorkflowStep step1 = new CreateUserStep();
-        WorkflowStep step2 = new SendMailStep();
+        Step step1 = new CreateUserStep();
+        Step step2 = new SendMailStep();
 
         return new WorkFlow("Register Flow", Arrays.asList(step1, step2));
     }
@@ -22,15 +22,15 @@
     @Autowired WorkFlow registerWorkFlow;
 
     - Mono version
-    AbstractContext context = new ParameterContext(Optional.of(new HashMap<String, Object>(){{put("parameter1", "parameter1 value");}}));
+    Context context = new ParameterContext(Map.of("parameter1", "parameter1 value"));
     registerWorkflow.processWorkflow(context).subscribe();
 
     - CompletableFuture version
-    AbstractContext context = new ParameterContext(Optional.of(new HashMap<String, Object>(){{put("parameter1", "parameter1 value");}}));
+    Context context = new ParameterContext(Map.of("parameter1", "parameter1 value"));
     registerWorkflow.processWorkflowFuture(context).join();
 
     - Blocking version
-    AbstractContext context = new ParameterContext(Optional.of(new HashMap<String, Object>(){{put("parameter1", "parameter1 value");}}));
+    Context context = new ParameterContext(Map.of("parameter1", "parameter1 value"));
     registerWorkflow.processWorkflow(context);
     
         
